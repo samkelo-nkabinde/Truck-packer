@@ -1,4 +1,9 @@
 public class Greeter {
+    /**
+     * Accept name as String input 
+     * Greeter the user and
+     * give a short analysis of their name 
+     */
     public static void greeter(String name) {
         System.out.println("Hello, " + name + 
                         ". Your name starts with the letter: " + "'" +
