@@ -14,6 +14,11 @@ public class Greeter {
         return;
     }
 
+    public static void goodbye() {
+        System.out.println("Goodbye!");
+        return;
+    }
+    
     public static void main(String args[]) {
         greeter(args[0]); // Assuming the user will pass their name 
         return;
