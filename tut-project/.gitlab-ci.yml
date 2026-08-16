@@ -1,3 +1,5 @@
+image: maven:3.9-eclipse-temurin-26
+
 stages:
   - build
   - test
@@ -6,8 +8,10 @@ build-job:
   stage: build
   script:
     - echo "Compiling the code..."
-    
+    - mvn clean compile
+
 test-job:
   stage: test
   script:
     - echo "Running tests..."
+    - mvn test
