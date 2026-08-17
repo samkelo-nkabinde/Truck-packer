@@ -8,12 +8,16 @@ before_script:
   
 build-job:
   stage: build
+  tags: 
+    - shared-docker-runner
   script:
     - echo "Compiling the code..."
     - mvn clean compile
 
 test-job:
   stage: test
+  tags: 
+    - shared-docker-runner
   script:
     - echo "Running tests..."
     - mvn test
