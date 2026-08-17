@@ -3,7 +3,9 @@ image: maven:3.9-eclipse-temurin-26
 stages:
   - build
   - test
-
+before_script:
+  - cd "tut-project"
+  
 build-job:
   stage: build
   script:
