@@ -3,9 +3,13 @@ image: maven:3.9-eclipse-temurin-26
 stages:
   - build
   - test
+<<<<<<< HEAD
 before_script:
   - cd "tut-project"
   
+=======
+
+>>>>>>> c0ed7f55c8ef59f49cad45bee3644c797516f421
 build-job:
   stage: build
   script:
@@ -16,4 +20,8 @@ test-job:
   stage: test
   script:
     - echo "Running tests..."
+<<<<<<< HEAD
     - mvn test
+=======
+    - mvn test
+>>>>>>> c0ed7f55c8ef59f49cad45bee3644c797516f421
