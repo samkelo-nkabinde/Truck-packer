@@ -2,12 +2,12 @@ package truckpacker;
 
 public class Item {
     private String name;
-    private double volume;
-    private double price;
+    private int volume;
+    private int price;
     private int quantity;
-
+    
     // One iteam constructor
-    public Item(String name, double volume, int price) {
+    public Item(String name, int volume, int price) {
         this.name = name;
         this.volume = volume;
         this.price = price;
@@ -15,7 +15,7 @@ public class Item {
     }
 
     // constructor for greater than one quantity
-    public Item(String name, double volume, double price, int quantity) {
+    public Item(String name, int volume, int price, int quantity) {
         this.name = name;
         this.volume = volume;
         this.price = price;
@@ -27,11 +27,11 @@ public class Item {
         return name;
     }
 
-    public double getVolume() {
+    public int getVolume() {
         return volume;
     }
 
-    public double getPrice() {
+    public int getPrice() {
         return price;
     }
 
