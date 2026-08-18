@@ -1,4 +1,4 @@
-image: maven:3.9-eclipse-temurin-26
+image: maven:3.9-eclipse-temurin-21
 
 stages:
   - build
@@ -11,7 +11,6 @@ build-job:
   tags: 
     - shared-docker-runner
   script:
-    - echo "Compiling the code..."
     - mvn clean compile
 
 test-job:
@@ -19,5 +18,4 @@ test-job:
   tags: 
     - shared-docker-runner
   script:
-    - echo "Running tests..."
     - mvn test
