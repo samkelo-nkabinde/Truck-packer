@@ -6,6 +6,9 @@ public class Item {
     private int price;
     private int quantity;
     
+    // Constructor for the json paser!
+    public Item() {}
+    
     // One iteam constructor
     public Item(String name, int volume, int price) {
         this.name = name;
@@ -26,6 +29,24 @@ public class Item {
     public void addQuantity(int extraQuantity) {
         this.quantity += extraQuantity;
     }
+
+    // Modifiers
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setVolume(int volume) {
+        this.volume = volume;
+    }
+
+    public void setPrice(int price) {
+        this.price = price;
+    }
+
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
+    }
+
 
     // Access methods
     public String getName() {

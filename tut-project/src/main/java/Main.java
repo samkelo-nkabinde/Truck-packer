@@ -2,6 +2,9 @@ package truckpacker;
 
 import java.util.ArrayList;
 import java.util.List;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import java.io.File;
+import java.io.IOException;
 
 public class Main {
 
@@ -21,16 +24,29 @@ public class Main {
 
     public static void main(String[] argv){
 
-        List<Item> inventory = new ArrayList<>();
+        if (argv.length < 1) {
+            System.err.println("Error: No input file provided.");
+            return;
+        }
+        
+        String inputFilePath = argv[0];
+        InputHandler inputData;
+        
+        // Parse the JSON file
+        ObjectMapper mapper = new ObjectMapper();
+        try {
+            inputData = mapper.readValue(new File(inputFilePath), InputHandler.class);
+        } catch (IOException e) {
+            System.err.println("Error: Unable to read or parse the input file.");
+            e.printStackTrace();
+            return; 
+        }
 
-        inventory.add(new Item("Microwave", 8, 50, 1));
-        inventory.add(new Item("Drone", 2, 150, 3));  
-        inventory.add(new Item("Monitor", 6, 210, 2)); 
-        inventory.add(new Item("Kettle", 1, 30, 5));
+        int maxVolume = inputData.getTruckVolume();
+        int maxItems = inputData.getMaxItems();
+        List<Item> inventory = inputData.getInventory();
 
         List<Bundle> Bundles = bundleItems(inventory);
-        int maxVolume = 10;
-        int maxItems = 2; 
     
         int n = Bundles.size() - 1;
         int[] itemSizes = new int[n + 1];
