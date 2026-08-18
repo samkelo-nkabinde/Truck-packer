@@ -22,6 +22,11 @@ public class Item {
         this.quantity = quantity; // Multiple iteams of the same type
     }
 
+    // setter for dealing with bundled items
+    public void addQuantity(int extraQuantity) {
+        this.quantity += extraQuantity;
+    }
+
     // Access methods
     public String getName() {
         return this.name;

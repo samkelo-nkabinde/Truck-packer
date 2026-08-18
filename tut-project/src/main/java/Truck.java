@@ -51,12 +51,21 @@ public class Truck {
                 && getCurrentItemCount() + item.getQuantity() <= this.maxItems;
     }
 
-    public boolean addItem(Item item) {
-        if (!canAddItem(item)) {
+    public boolean addItem(Item newItem) {
+        if (!canAddItem(newItem)) {
             return false;
         }
 
-        this.items.add(item);
+        for (Item existingItem : this.items) {
+            if (existingItem.getName().equals(newItem.getName())) {
+                // increase quntity instead of adding new item
+                existingItem.addQuantity(newItem.getQuantity());
+                return true;
+            }
+        }
+
+        // if item not found, add it as new item
+        this.items.add(newItem);
         return true;
     }
 
