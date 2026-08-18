@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <project>
-    <groupId>za.sun.cs.rw344</groupId>
+    <groupId>truck-packer</groupId>
     <artifactId>tut2</artifactId>
 
     <packaging>jar</packaging>
