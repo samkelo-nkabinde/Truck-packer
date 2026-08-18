@@ -30,17 +30,25 @@ public class Truck {
     // total volume of all elemnts packed in the truck
     public int getCurrentVolume() {
         int volume = 0;
-
         for (Item item : this.items) {
-            volume += item.getVolume();
+            // Multiply volume by quantity
+            volume += (item.getVolume() * item.getQuantity());
         }
-
         return volume;
     }
 
+    // total number of items
+    public int getCurrentItemCount() {
+        int count = 0;
+        for (Item item : this.items) {
+            count += item.getQuantity();
+        }
+        return count;
+    }
+
     public boolean canAddItem(Item item) {
-        return getCurrentVolume() + item.getVolume() <= this.maxVolume
-                && this.items.size() < this.maxItems;
+        return getCurrentVolume() + (item.getVolume() * item.getQuantity()) <= this.maxVolume
+                && getCurrentItemCount() + item.getQuantity() <= this.maxItems;
     }
 
     public boolean addItem(Item item) {
@@ -54,11 +62,9 @@ public class Truck {
 
     public int getTotalPriceValue() {
         int priceValue = 0;
-
         for (Item item : this.items) {
-            priceValue += item.getPrice();
+            priceValue += (item.getPrice() * item.getQuantity());
         }
-
         return priceValue;
     }
 }
