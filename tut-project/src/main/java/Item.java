@@ -24,18 +24,18 @@ public class Item {
 
     // Access methods
     public String getName() {
-        return name;
+        return this.name;
     }
 
     public int getVolume() {
-        return volume;
+        return this.volume;
     }
 
     public int getPrice() {
-        return price;
+        return this.price;
     }
 
     public int getQuantity() {
-        return quantity;
+        return this.quantity;
     }
 }
