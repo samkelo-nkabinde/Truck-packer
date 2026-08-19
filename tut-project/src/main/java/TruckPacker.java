@@ -22,15 +22,20 @@ public class TruckPacker {
     public static Truck packTruck(int maxVolume, int maxItems, List<Item> inventory) {
         // Bundle the items using binary splitting
         List<Bundle> bundles = bundleItems(inventory);
-        int n = bundles.size() - 1;
+        int n = bundles.size();
 
-        // Convert bundles into the 1-indexed primitive arrays
-        int[] itemSizes = new int[n + 1];
-        int[] prices = new int[n + 1];
-        String[] itemNames = new String[n + 1];
-        int[] itemCounts = new int[n + 1];
+        // if inventory is completely empty, return an empty truck
+        if (n == 0) {
+            return new Truck(maxVolume, maxItems);
+        }
 
-        for (int i = 1; i <= n; i++) {
+        // Convert bundles into 0-indexed primitive arrays
+        int[] itemSizes = new int[n];
+        int[] prices = new int[n];
+        String[] itemNames = new String[n];
+        int[] itemCounts = new int[n];
+
+        for (int i = 0; i < n; i++) {
             Bundle bundle = bundles.get(i);
             itemSizes[i] = bundle.volume;
             prices[i] = bundle.price;
@@ -38,17 +43,15 @@ public class TruckPacker {
             itemCounts[i] = bundle.count;
         }
 
-        // Initialize the 3D array and run the core algorithm
-        int[][][] data = new int[n + 1][maxVolume + 1][maxItems + 1];
+        int[][][] data = new int[n][maxVolume + 1][maxItems + 1];
         getOptimalMaximum(n, maxVolume, maxItems, prices, itemSizes, itemCounts, data);
 
-        // Backtrack through the data array to load and return the physical Truck
+        // Backtrack through the data array
         return loadTruck(n, maxVolume, maxItems, prices, itemSizes, itemCounts, data, itemNames);
     }
 
     private static List<Bundle> bundleItems(List<Item> inventory) {
         List<Bundle> bundles = new ArrayList<>();
-        bundles.add(new Bundle("", 0, 0, 0)); // Dummy base-case for index 0
 
         for (Item item : inventory) {
             int quantity = item.getQuantity();
@@ -70,23 +73,31 @@ public class TruckPacker {
     }
 
     private static int getOptimalMaximum(int n, int maxVolume, int maxItems, int[] prices, int[] itemSizes, int[] itemCounts, int[][][] data) {
-        for(int item = 1; item <= n; item += 1){
+        for(int item = 0; item < n; item += 1){
             for(int volume = 1; volume <= maxVolume; volume += 1){
                 for(int count = 1; count <= maxItems; count += 1){
                     
                     if(itemSizes[item] <= volume && itemCounts[item] <= count){
-                        data[item][volume][count] = Math.max(
-                            (prices[item] + data[item - 1][volume - itemSizes[item]][count - itemCounts[item]]), 
-                            data[item - 1][volume][count]
-                        );
+                        if (item == 0) {
+                            data[item][volume][count] = prices[item];
+                        } else {
+                    
+                            data[item][volume][count] = Math.max(
+                                (prices[item] + data[item - 1][volume - itemSizes[item]][count - itemCounts[item]]), 
+                                data[item - 1][volume][count]
+                            );
+                        }
                     }
                     else {
-                        data[item][volume][count] = data[item - 1][volume][count];
+                        if (item > 0) {
+                            // Carry forward the previous best if can't fit this item
+                            data[item][volume][count] = data[item - 1][volume][count];
+                        }
                     }
                 }
             }
         }
-        return data[n][maxVolume][maxItems];
+        return data[n - 1][maxVolume][maxItems];
     }
 
     private static Truck loadTruck(int n, int maxVolume, int maxItems, int[] prices, int[] itemSizes, int[] itemCounts, int[][][] data, String[] itemNames) {
@@ -95,9 +106,22 @@ public class TruckPacker {
         int currentVolume = maxVolume;
         int currentCount = maxItems; 
 
-        for (int i = n; i > 0; i--) {
-            if (data[i][currentVolume][currentCount] != data[i - 1][currentVolume][currentCount]) {
-                
+        for (int i = n - 1; i >= 0; i--) {
+            boolean isItemPacked = false;
+
+            if (i > 0) {
+                // If it's not the first item, check if the value changed from the previous item
+                if (data[i][currentVolume][currentCount] != data[i - 1][currentVolume][currentCount]) {
+                    isItemPacked = true;
+                }
+            } else {
+                // If it is the 0th item, if there's any value greater than 0, it means it packed
+                if (data[i][currentVolume][currentCount] > 0) {
+                    isItemPacked = true;
+                }
+            }
+
+            if (isItemPacked) {
                 int quantity = itemCounts[i];
                 int baseVolume = itemSizes[i] / quantity;
                 int basePrice = prices[i] / quantity;
