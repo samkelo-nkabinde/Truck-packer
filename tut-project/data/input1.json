@@ -1,10 +1,27 @@
 {
-  "truckVolume": 10,
-  "maxItems": 4,
+  "truckVolume": 50,
+  "maxItems": 10,
+
   "inventory": [
-    { "name": "Microwave", "volume": 8, "price": 50, "quantity": 1 },
-    { "name": "Drone", "volume": 2, "price": 150, "quantity": 3 },
-    { "name": "Monitor", "volume": 6, "price": 210, "quantity": 2 },
-    { "name": "Kettle", "volume": 1, "price": 30, "quantity": 5 }
+    { "name": "Microwave", "volume": 8, "price": 50, "quantity": 3 },
+    { "name": "Drone", "volume": 2, "price": 150, "quantity": 5 },
+    { "name": "Monitor", "volume": 6, "price": 210, "quantity": 4 },
+    { "name": "Kettle", "volume": 1, "price": 30, "quantity": 8 },
+    { "name": "Laptop", "volume": 5, "price": 800, "quantity": 3 },
+    { "name": "Keyboard", "volume": 2, "price": 120, "quantity": 6 },
+    { "name": "Mouse", "volume": 1, "price": 75, "quantity": 10 },
+    { "name": "Printer", "volume": 7, "price": 450, "quantity": 2 },
+    { "name": "Tablet", "volume": 3, "price": 500, "quantity": 5 },
+    { "name": "Smartphone", "volume": 2, "price": 700, "quantity": 7 },
+    { "name": "Speaker", "volume": 4, "price": 280, "quantity": 4 },
+    { "name": "Headphones", "volume": 1, "price": 200, "quantity": 8 },
+    { "name": "Television", "volume": 12, "price": 1200, "quantity": 2 },
+    { "name": "Game Console", "volume": 5, "price": 900, "quantity": 3 },
+    { "name": "Camera", "volume": 3, "price": 650, "quantity": 4 },
+    { "name": "Projector", "volume": 6, "price": 750, "quantity": 2 },
+    { "name": "Router", "volume": 2, "price": 180, "quantity": 6 },
+    { "name": "External Hard Drive", "volume": 1, "price": 250, "quantity": 8 },
+    { "name": "Coffee Machine", "volume": 6, "price": 600, "quantity": 3 },
+    { "name": "Air Fryer", "volume": 5, "price": 550, "quantity": 3 }
   ]
 }
