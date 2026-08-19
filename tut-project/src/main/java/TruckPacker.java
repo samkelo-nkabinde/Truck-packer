@@ -20,7 +20,7 @@ public class TruckPacker {
     }
 
     public static Truck packTruck(int maxVolume, int maxItems, List<Item> inventory) {
-        // Bundle the items using binary splitting
+
         List<Bundle> bundles = bundleItems(inventory);
         int n = bundles.size();
 
@@ -49,7 +49,9 @@ public class TruckPacker {
         // Backtrack through the data array
         return loadTruck(n, maxVolume, maxItems, prices, itemSizes, itemCounts, data, itemNames);
     }
-
+    
+    // Bundle the items using binary splitting
+    // This helps avoid increase the time complexity of the knapsack algo
     private static List<Bundle> bundleItems(List<Item> inventory) {
         List<Bundle> bundles = new ArrayList<>();
 

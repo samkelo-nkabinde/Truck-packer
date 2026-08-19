@@ -1,6 +1,16 @@
 # Truck packer    
 
-### Version
-```{bash} 
-javac 26.0.2
-```
+## Background     
+
+## Prerequisites
+
+## Usage
+
+## Inputs and Outputs
+
+## Testing
+
+## Continuous integration
+
+## References 
+This [video](https://www.youtube.com/watch?v=hagBB17_hvg&list=WL&index=1&t=649s) was used to help with the knapsack algorithm. 
