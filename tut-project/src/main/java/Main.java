@@ -34,7 +34,7 @@ public class Main {
             return; 
         }
 
-        // Run the packing algorithm 
+        // Run the knapsack algorithm 
         Truck finalTruck = TruckPacker.packTruck(
             inputData.getTruckVolume(), 
             inputData.getMaxItems(), 
