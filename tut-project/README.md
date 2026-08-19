@@ -86,7 +86,11 @@ The ouput is in JSON format as well, here is an example of output format:
 } ]
 ```
 ## Testing
-
+Unit and integration tests are written with JUnit 4.
+``` bash 
+# Run tests
+mvn test
+```
 ## Continuous integration
 This repository uses GitLab CI to automatically build and test the code on every push.
 
