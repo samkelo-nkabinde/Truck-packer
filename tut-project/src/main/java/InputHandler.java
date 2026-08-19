@@ -7,7 +7,6 @@ public class InputHandler {
     private int maxItems;
     private List<Item> inventory;
 
-    
     public InputHandler() {} 
     
     // Access methods

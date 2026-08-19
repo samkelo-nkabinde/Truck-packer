@@ -49,7 +49,7 @@ public class TruckPacker {
         // Backtrack through the data array
         return loadTruck(n, maxVolume, maxItems, prices, itemSizes, itemCounts, data, itemNames);
     }
-    
+
     // Bundle the items using binary splitting
     // This helps avoid increase the time complexity of the knapsack algo
     private static List<Bundle> bundleItems(List<Item> inventory) {
@@ -75,6 +75,7 @@ public class TruckPacker {
     }
 
     // core zero one knapsack algorithm extended to fit constrains
+    // source https://youtu.be/hagBB17_hvg?si=o8CAhYvalVisxy9g
     private static int getOptimalMaximum(int n, int maxVolume, int maxItems, int[] prices, int[] itemSizes, int[] itemCounts, int[][][] data) {
         for(int item = 0; item < n; item += 1){
             for(int volume = 1; volume <= maxVolume; volume += 1){
