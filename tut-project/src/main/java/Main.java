@@ -50,7 +50,6 @@ public class Main {
         // Write the loaded truck items to the output JSON file
         try {
             mapper.writerWithDefaultPrettyPrinter().writeValue(new File(outputFilePath), finalTruck.getItems());
-            System.out.println("Success! Packing list written to: " + outputFilePath);
         } catch (IOException e) {
             System.err.println("Error: Unable to write to the output file.");
         }

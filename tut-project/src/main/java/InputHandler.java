@@ -8,9 +8,8 @@ public class InputHandler {
     private List<Item> inventory;
 
     
-    public InputHandler() {
-    }
-
+    public InputHandler() {} 
+    
     // Access methods
     public int getTruckVolume() { return truckVolume; }
     public int getMaxItems() { return maxItems; }
