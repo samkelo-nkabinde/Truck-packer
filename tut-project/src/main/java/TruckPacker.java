@@ -72,6 +72,7 @@ public class TruckPacker {
         return bundles;
     }
 
+    // core zero one knapsack algorithm extended to fit constrains
     private static int getOptimalMaximum(int n, int maxVolume, int maxItems, int[] prices, int[] itemSizes, int[] itemCounts, int[][][] data) {
         for(int item = 0; item < n; item += 1){
             for(int volume = 1; volume <= maxVolume; volume += 1){
