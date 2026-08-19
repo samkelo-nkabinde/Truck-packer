@@ -7,7 +7,49 @@ This project implements a version of the [Knapsack algorithm](https://en.wikiped
 - The number of avaible goods to pack
 
 ## Knapsack Algorithm 
-Instead of a painfull to understand top down recursive approach (even [NASA does not like recursion](https://www.cs.otago.ac.nz/cosc345/resources/nasa-10-rules.htm)), this project uses a bottom up approach, to find the optimal maximum value of items that can be fit into the truck
+Instead of a painfull to understand top down recursive approach (even [NASA does not like recursion](https://www.cs.otago.ac.nz/cosc345/resources/nasa-10-rules.htm)), this project uses a bottom up approach, to find the optimal maximum value of items that can be fit into the truck. 
+Since the standard 0/1 Knapsack algorithm strictly assumes you either take an item 0 or 1 times. To handle inventory items with a `quantity > 1` , this project uses a Binary Splitting technique, to bundle items into groups of powers of 2. It uses the following bundle helper class: 
+``` java
+static class Bundle {
+        String name;
+        int volume;
+        int price;
+        int count;
+
+        public Bundle(String name, int volume, int price, int count) {
+            this.name = name;
+            this.volume = volume;
+            this.price = price;
+            this.count = count;
+        }
+    }
+```
+And the following function to perform the binary spliting:
+``` java
+private static List<Bundle> bundleItems(List<Item> inventory) {
+        List<Bundle> bundles = new ArrayList<>();
+
+        for (Item item : inventory) {
+            int quantity = item.getQuantity();
+            int k = 1;
+            
+            while (quantity > 0) {
+                int take = Math.min(k, quantity);
+                bundles.add(new Bundle(
+                    item.getName(), 
+                    item.getVolume() * take, 
+                    item.getPrice() * take, 
+                    take
+                ));
+                quantity -= take;
+                k *= 2;
+            }
+        }
+        return bundles;
+    }
+```
+
+Once the binary spiting is complete, the following function as the core logic of the Knapsack algorithm. It is an extended version from this [video](https://www.youtube.com/watch?v=hagBB17_hvg&list=WL&index=1&t=649s), adapted to include a third dimension [count] for the item limits.
 ``` java
 private static int 
 getOptimalMaximum(int n, int maxVolume, 
