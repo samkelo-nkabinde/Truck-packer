@@ -18,7 +18,7 @@ public class TruckPacker {
             this.count = count;
         }
     }
-    
+
     public static Truck packTruck(int maxVolume, int maxItems, List<Item> inventory) {
 
         List<Bundle> bundles = bundleItems(inventory);
@@ -138,5 +138,44 @@ public class TruckPacker {
             }
         }
         return packedTruck;
+    }
+
+    // TUT 3:
+    private double minCost = Double.MAX_VALUE;
+    private List<Truck> bestFleetCombo = null;
+
+    public List<Truck> packMultipleTrucks(List<Truck> availableFleet, List<Item> inventory) {
+        // Flatten the inventory into individual items 
+        List<Item> flatItems = new ArrayList<>();
+        for (Item item : inventory) {
+            for (int i = 0; i < item.getQuantity(); i++) {
+                flatItems.add(new Item(item.getName(), item.getVolume(), item.getPrice(), 1));
+            }
+        }
+
+        // Sort items by volume (Desc)
+        flatItems.sort((a, b) -> Integer.compare(b.getVolume(), a.getVolume()));
+
+        // Reset state if this method is called multiple times
+        this.minCost = Double.MAX_VALUE;
+        this.bestFleetCombo = null;
+
+        // Start backtracking 
+        backtrack(flatItems, 0, availableFleet, 0.0);
+
+        // Return empty list If no best combo  was found
+        if (bestFleetCombo == null) {
+            return new ArrayList<>(); 
+        }
+
+        // Filter out the empty trucks 
+        List<Truck> usedTrucks = new ArrayList<>();
+        for (Truck t : bestFleetCombo) {
+            if (!t.getItems().isEmpty()) {
+                usedTrucks.add(t);
+            }
+        }
+        
+        return usedTrucks;
     }
 }

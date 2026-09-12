@@ -81,6 +81,20 @@ public class Truck {
         return true;
     }
 
+    public void removeLastItem(Item itemToRemove) {
+        for (int i = this.items.size() - 1; i >= 0; i--) {
+            Item current = this.items.get(i);
+            if (current.getName().equals(itemToRemove.getName())) {
+                if (current.getQuantity() > itemToRemove.getQuantity()) {
+                    current.addQuantity(-itemToRemove.getQuantity());
+                } else {
+                    this.items.remove(i);
+                }
+                break;
+            }
+        }
+    }
+
     public int getTotalPriceValue() {
         int priceValue = 0;
         for (Item item : this.items) {
