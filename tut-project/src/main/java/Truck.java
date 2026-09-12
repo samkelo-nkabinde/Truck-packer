@@ -4,17 +4,29 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Truck {
+    private String id;
+    private double cost;
     private int maxVolume;
     private int maxItems;
     private List<Item> items; // items currently packed
 
-    public Truck(int maxVolume, int maxItems) {
+    public Truck(String id, int maxVolume, int maxItems, double cost) {
+        this.id = id;
+        this.cost = cost;
         this.maxVolume = maxVolume;
         this.maxItems = maxItems;
         this.items = new ArrayList<>();
     }
 
     // Acess methods
+    public String getId(){
+        return this.id;
+    }
+
+    public double getCost(){
+        return this.cost;
+    }
+
     public int getMaxVolume() {
         return this.maxVolume;
     }
