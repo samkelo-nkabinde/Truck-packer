@@ -88,13 +88,20 @@ public class Truck {
 
     public void removeLastItem(Item itemToRemove) {
         for (int i = this.items.size() - 1; i >= 0; i--) {
+
             Item current = this.items.get(i);
+
             if (current.getName().equals(itemToRemove.getName())) {
+
                 if (current.getQuantity() > itemToRemove.getQuantity()) {
-                    current.addQuantity(-itemToRemove.getQuantity());
+                    int newQuantity = current.getQuantity() - itemToRemove.getQuantity();
+                    Item reducedItem = new Item(current.getName(), current.getVolume(), current.getPrice(), newQuantity);
+                    this.items.set(i, reducedItem);
+
                 } else {
                     this.items.remove(i);
                 }
+                
                 break;
             }
         }
