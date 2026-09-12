@@ -18,7 +18,7 @@ public class TruckPacker {
             this.count = count;
         }
     }
-
+    
     public static Truck packTruck(int maxVolume, int maxItems, List<Item> inventory) {
 
         List<Bundle> bundles = bundleItems(inventory);
