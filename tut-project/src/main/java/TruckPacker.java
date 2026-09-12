@@ -178,4 +178,38 @@ public class TruckPacker {
         
         return usedTrucks;
     }
+
+    private void backtrack(List<Item> items, int currentItemIndex, List<Truck> fleet, double currentCost) {
+        // Prune this path if it's already more expensive the best find
+        if (currentCost >= minCost) {
+            return;
+        }
+
+        // BASE CASE: packed all items
+        if (currentItemIndex == items.size()) {
+            minCost = currentCost;
+            bestFleetCombo = cloneFleet(fleet); 
+            return;
+        }
+
+        Item currentItem = items.get(currentItemIndex);
+
+        
+        for (Truck truck : fleet) {
+            if (truck.canAddItem(currentItem)) {
+                
+                boolean isNewlyHired = truck.getItems().isEmpty();
+                double costAddition = isNewlyHired ? truck.getCost() : 0.0;
+
+                // CHOOSE (Branch)
+                truck.addItem(currentItem);
+                
+                // EXPLORE (Recurse to next item)
+                backtrack(items, currentItemIndex + 1, fleet, currentCost + costAddition);
+                
+                // UN-CHOOSE (Backtrack)
+                truck.removeLastItem(currentItem);
+            }
+        }
+    }
 }
