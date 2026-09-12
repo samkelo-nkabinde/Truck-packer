@@ -212,4 +212,16 @@ public class TruckPacker {
             }
         }
     }
+
+    private List<Truck> cloneFleet(List<Truck> fleet) {
+        List<Truck> clonedFleet = new ArrayList<>();
+        for (Truck t : fleet) {
+            Truck clonedTruck = new Truck(t.getId(), t.getMaxVolume(), t.getMaxItems(), t.getCost());
+            for (Item item : t.getItems()) {
+                clonedTruck.addItem(new Item(item.getName(), item.getVolume(), item.getPrice(), item.getQuantity()));
+            }
+            clonedFleet.add(clonedTruck);
+        }
+        return clonedFleet;
+    }
 }

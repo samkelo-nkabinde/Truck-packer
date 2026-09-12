@@ -10,6 +10,11 @@ public class Truck {
     private int maxItems;
     private List<Item> items; // items currently packed
 
+    // For tut 2 compatibillity
+    public Truck(int maxVolume, int maxItems) {
+        this("T-Single", maxVolume, maxItems, 0.0); // Default ID and 0 cost
+    }
+
     public Truck(String id, int maxVolume, int maxItems, double cost) {
         this.id = id;
         this.cost = cost;
