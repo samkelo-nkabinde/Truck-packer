@@ -4,17 +4,34 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Truck {
+    private String id;
+    private double cost;
     private int maxVolume;
     private int maxItems;
     private List<Item> items; // items currently packed
 
+    // For tut 2 compatibillity
     public Truck(int maxVolume, int maxItems) {
+        this("T-Single", maxVolume, maxItems, 0.0); // Default ID and 0 cost
+    }
+
+    public Truck(String id, int maxVolume, int maxItems, double cost) {
+        this.id = id;
+        this.cost = cost;
         this.maxVolume = maxVolume;
         this.maxItems = maxItems;
         this.items = new ArrayList<>();
     }
 
     // Acess methods
+    public String getId(){
+        return this.id;
+    }
+
+    public double getCost(){
+        return this.cost;
+    }
+
     public int getMaxVolume() {
         return this.maxVolume;
     }
@@ -67,6 +84,27 @@ public class Truck {
         // if item not found, add it as new item
         this.items.add(newItem);
         return true;
+    }
+
+    public void removeLastItem(Item itemToRemove) {
+        for (int i = this.items.size() - 1; i >= 0; i--) {
+
+            Item current = this.items.get(i);
+
+            if (current.getName().equals(itemToRemove.getName())) {
+
+                if (current.getQuantity() > itemToRemove.getQuantity()) {
+                    int newQuantity = current.getQuantity() - itemToRemove.getQuantity();
+                    Item reducedItem = new Item(current.getName(), current.getVolume(), current.getPrice(), newQuantity);
+                    this.items.set(i, reducedItem);
+
+                } else {
+                    this.items.remove(i);
+                }
+                
+                break;
+            }
+        }
     }
 
     public int getTotalPriceValue() {
