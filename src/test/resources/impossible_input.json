@@ -1,0 +1,7 @@
+{
+  "truckVolume": 2,
+  "maxItems": 4,
+  "inventory": [
+    { "name": "Fridge", "volume": 8, "price": 50, "quantity": 1 }
+  ]
+}

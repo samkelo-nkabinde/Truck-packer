@@ -1,0 +1,11 @@
+[ {
+  "name" : "Monitor",
+  "volume" : 6,
+  "price" : 210,
+  "quantity" : 1
+}, {
+  "name" : "Drone",
+  "volume" : 2,
+  "price" : 150,
+  "quantity" : 2
+} ]
