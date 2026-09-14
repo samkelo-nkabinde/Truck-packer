@@ -86,4 +86,48 @@ public class TruckPackerTest {
         assertEquals(0, packedTruck.getCurrentItemCount());
     }
 
+    // tut 3
+    @Test
+    public void testPackMultipleTrucks_MinimizesCost() {
+        Item bigBoxes = new Item("Big Box", 50, 0, 2);   
+        Item smallBox = new Item("Small Box", 30, 0, 1); 
+        List<Item> inventory = Arrays.asList(bigBoxes, smallBox);
+
+        Truck cheapSmall = new Truck("T1-Cheap-Small", 50, 5, 40.0);
+        Truck medium = new Truck("T2-Medium", 100, 5, 100.0);
+        Truck expensiveBig = new Truck("T3-Expensive-Big", 150, 5, 150.0);
+        
+        List<Truck> fleet = Arrays.asList(cheapSmall, medium, expensiveBig);
+
+        TruckPacker packer = new TruckPacker();
+        List<Truck> result = packer.packMultipleTrucks(fleet, inventory);
+
+        assertEquals("Should use 2 trucks to minimize cost", 2, result.size());
+        
+        double totalCost = 0;
+        for (Truck t : result) {
+            totalCost += t.getCost();
+        }
+        assertEquals("Optimal cost should be 140.0", 140.0, totalCost, 0.001);
+        
+        int totalItemsPacked = 0;
+        for (Truck t : result) {
+            totalItemsPacked += t.getCurrentItemCount();
+        }
+        assertEquals("All 3 items must be packed", 3, totalItemsPacked);
+    }
+    
+    @Test
+    public void testPackMultipleTrucks_ImpossibleToFit() {
+        Item hugeBox = new Item("Huge Box", 500, 0, 1);
+        List<Item> inventory = Arrays.asList(hugeBox);
+        
+        Truck smallTruck = new Truck("T1-Small", 100, 5, 50.0);
+        List<Truck> fleet = Arrays.asList(smallTruck);
+        
+        TruckPacker packer = new TruckPacker();
+        List<Truck> result = packer.packMultipleTrucks(fleet, inventory);
+        
+        assertTrue("Should return empty list when impossible to pack", result.isEmpty());
+    }
 }

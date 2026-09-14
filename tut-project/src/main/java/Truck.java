@@ -10,6 +10,15 @@ public class Truck {
     private int maxItems;
     private List<Item> items; // items currently packed
 
+    // For tut 2 compatibillity
+    // public Truck(int maxVolume, int maxItems) {
+    //     this("T-Single", maxVolume, maxItems, 0.0); // Default ID and 0 cost
+    // }
+
+    public Truck() {
+        this.items = new ArrayList<>(); // Prevents null pointer errors
+    }
+
     public Truck(String id, int maxVolume, int maxItems, double cost) {
         this.id = id;
         this.cost = cost;
@@ -17,6 +26,13 @@ public class Truck {
         this.maxItems = maxItems;
         this.items = new ArrayList<>();
     }
+
+    // json setters
+    public void setId(String id) { this.id = id; }
+    public void setCost(double cost) { this.cost = cost; }
+    public void setMaxVolume(int maxVolume) { this.maxVolume = maxVolume; }
+    public void setMaxItems(int maxItems) { this.maxItems = maxItems; }
+    public void setItems(List<Item> items) { this.items = items; }
 
     // Acess methods
     public String getId(){
