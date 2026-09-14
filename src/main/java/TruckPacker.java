@@ -26,7 +26,7 @@ public class TruckPacker {
 
         // if inventory is completely empty, return an empty truck
         if (n == 0) {
-            return new Truck(maxVolume, maxItems);
+            return new Truck("Empty", maxVolume, maxItems, 0.0);
         }
 
         // Convert bundles into 0-indexed primitive arrays
@@ -105,7 +105,7 @@ public class TruckPacker {
     }
 
     private static Truck loadTruck(int n, int maxVolume, int maxItems, int[] prices, int[] itemSizes, int[] itemCounts, int[][][] data, String[] itemNames) {
-        Truck packedTruck = new Truck(maxVolume, maxItems);
+        Truck packedTruck = new Truck("Forced", maxVolume, maxItems, 0.0);
         
         int currentVolume = maxVolume;
         int currentCount = maxItems; 
@@ -138,5 +138,90 @@ public class TruckPacker {
             }
         }
         return packedTruck;
+    }
+
+    // TUT 3:
+    private double minCost = Double.MAX_VALUE;
+    private List<Truck> bestFleetCombo = null;
+
+    public List<Truck> packMultipleTrucks(List<Truck> availableFleet, List<Item> inventory) {
+        // Flatten the inventory into individual items 
+        List<Item> flatItems = new ArrayList<>();
+        for (Item item : inventory) {
+            for (int i = 0; i < item.getQuantity(); i++) {
+                flatItems.add(new Item(item.getName(), item.getVolume(), item.getPrice(), 1));
+            }
+        }
+
+        // Sort items by volume (Desc)
+        flatItems.sort((a, b) -> Integer.compare(b.getVolume(), a.getVolume()));
+
+        // Reset state if this method is called multiple times
+        this.minCost = Double.MAX_VALUE;
+        this.bestFleetCombo = null;
+
+        // Start backtracking 
+        backtrack(flatItems, 0, availableFleet, 0.0);
+
+        // Return empty list If no best combo  was found
+        if (bestFleetCombo == null) {
+            return new ArrayList<>(); 
+        }
+
+        // Filter out the empty trucks 
+        List<Truck> usedTrucks = new ArrayList<>();
+        for (Truck t : bestFleetCombo) {
+            if (!t.getItems().isEmpty()) {
+                usedTrucks.add(t);
+            }
+        }
+        
+        return usedTrucks;
+    }
+
+    private void backtrack(List<Item> items, int currentItemIndex, List<Truck> fleet, double currentCost) {
+        // Prune this path if it's already more expensive the best find
+        if (currentCost >= minCost) {
+            return;
+        }
+
+        // BASE CASE: packed all items
+        if (currentItemIndex == items.size()) {
+            minCost = currentCost;
+            bestFleetCombo = cloneFleet(fleet); 
+            return;
+        }
+
+        Item currentItem = items.get(currentItemIndex);
+
+        
+        for (Truck truck : fleet) {
+            if (truck.canAddItem(currentItem)) {
+                
+                boolean isNewlyHired = truck.getItems().isEmpty();
+                double costAddition = isNewlyHired ? truck.getCost() : 0.0;
+
+                // Branch
+                truck.addItem(currentItem);
+                
+                // Recurse to next item
+                backtrack(items, currentItemIndex + 1, fleet, currentCost + costAddition);
+                
+                // Backtrack
+                truck.removeLastItem(currentItem);
+            }
+        }
+    }
+
+    private List<Truck> cloneFleet(List<Truck> fleet) {
+        List<Truck> clonedFleet = new ArrayList<>();
+        for (Truck t : fleet) {
+            Truck clonedTruck = new Truck(t.getId(), t.getMaxVolume(), t.getMaxItems(), t.getCost());
+            for (Item item : t.getItems()) {
+                clonedTruck.addItem(new Item(item.getName(), item.getVolume(), item.getPrice(), item.getQuantity()));
+            }
+            clonedFleet.add(clonedTruck);
+        }
+        return clonedFleet;
     }
 }

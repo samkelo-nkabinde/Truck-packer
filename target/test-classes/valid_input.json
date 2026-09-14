@@ -1,0 +1,10 @@
+{
+  "truckVolume": 10,
+  "maxItems": 4,
+  "inventory": [
+    { "name": "Microwave", "volume": 8, "price": 50, "quantity": 1 },
+    { "name": "Drone", "volume": 2, "price": 150, "quantity": 3 },
+    { "name": "Monitor", "volume": 6, "price": 210, "quantity": 2 },
+    { "name": "Kettle", "volume": 1, "price": 30, "quantity": 5 }
+  ]
+}
