@@ -45,14 +45,15 @@ public class TruckServer {
                 String contentType = exchange.getRequestHeaders().getFirst("Content-Type");
                 InputStream requestBody = exchange.getRequestBody();
                 
-                InputHandler.InputData inputData;
+                
+                InputHandler inputData;
 
                 // Parse using the correct mapper
                 if (contentType != null && contentType.contains("application/xml")) {
-                    inputData = xmlMapper.readValue(requestBody, InputHandler.InputData.class);
+                    inputData = xmlMapper.readValue(requestBody, InputHandler.class);
                 } else {
                     // Default to JSON
-                    inputData = jsonMapper.readValue(requestBody, InputHandler.InputData.class);
+                    inputData = jsonMapper.readValue(requestBody, InputHandler.class);
                 }
 
                 // Run the packing algorithm
@@ -62,7 +63,7 @@ public class TruckServer {
                 if (inputData.getFleet() != null && !inputData.getFleet().isEmpty()) {
                     resultFleet = packer.packMultipleTrucks(inputData.getFleet(), inputData.getInventory());
                 } else {
-                    // Use Tut 2 algo if single truck
+                    // Use Tut 2  algorithm if it a single truck
                     Truck singleTruck = TruckPacker.packTruck(inputData.getTruckVolume(), inputData.getMaxItems(), inputData.getInventory());
                     resultFleet = List.of(singleTruck);
                 }
