@@ -2,9 +2,11 @@
     <truckVolume>5</truckVolume>
     <maxItems>2</maxItems>
     <inventory>
-        <name>Giant Fridge</name>
-        <volume>15</volume>
-        <price>500</price>
-        <quantity>1</quantity>
+        <inventory>
+            <name>Giant Fridge</name>
+            <volume>15</volume>
+            <price>500</price>
+            <quantity>1</quantity>
+        </inventory>
     </inventory>
 </InputHandler>

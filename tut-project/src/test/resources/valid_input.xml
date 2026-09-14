@@ -2,15 +2,17 @@
     <truckVolume>10</truckVolume>
     <maxItems>4</maxItems>
     <inventory>
-        <name>Microwave</name>
-        <volume>8</volume>
-        <price>50</price>
-        <quantity>1</quantity>
-    </inventory>
-    <inventory>
-        <name>Drone</name>
-        <volume>2</volume>
-        <price>150</price>
-        <quantity>3</quantity>
+        <inventory>
+            <name>Microwave</name>
+            <volume>8</volume>
+            <price>50</price>
+            <quantity>1</quantity>
+        </inventory>
+        <inventory>
+            <name>Drone</name>
+            <volume>2</volume>
+            <price>150</price>
+            <quantity>3</quantity>
+        </inventory>
     </inventory>
 </InputHandler>
