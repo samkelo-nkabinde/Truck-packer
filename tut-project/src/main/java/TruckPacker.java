@@ -26,7 +26,7 @@ public class TruckPacker {
 
         // if inventory is completely empty, return an empty truck
         if (n == 0) {
-            return new Truck(maxVolume, maxItems);
+            return new Truck("Empty", maxVolume, maxItems, 0.0);
         }
 
         // Convert bundles into 0-indexed primitive arrays
@@ -105,7 +105,7 @@ public class TruckPacker {
     }
 
     private static Truck loadTruck(int n, int maxVolume, int maxItems, int[] prices, int[] itemSizes, int[] itemCounts, int[][][] data, String[] itemNames) {
-        Truck packedTruck = new Truck(maxVolume, maxItems);
+        Truck packedTruck = new Truck("Forced", maxVolume, maxItems, 0.0);
         
         int currentVolume = maxVolume;
         int currentCount = maxItems; 
@@ -201,13 +201,13 @@ public class TruckPacker {
                 boolean isNewlyHired = truck.getItems().isEmpty();
                 double costAddition = isNewlyHired ? truck.getCost() : 0.0;
 
-                // CHOOSE (Branch)
+                // Branch
                 truck.addItem(currentItem);
                 
-                // EXPLORE (Recurse to next item)
+                // Recurse to next item
                 backtrack(items, currentItemIndex + 1, fleet, currentCost + costAddition);
                 
-                // UN-CHOOSE (Backtrack)
+                // Backtrack
                 truck.removeLastItem(currentItem);
             }
         }
